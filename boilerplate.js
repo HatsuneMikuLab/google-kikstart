@@ -1,4 +1,17 @@
-const io = require('readline')
+const readline = require('readline');
+
+const rl = readline.createInterface({ input: process.stdin , output: process.stdout });
+
+exports.getLine = (function () {
+    const getLineGen = (async function* () {
+        for await (const line of rl) {
+            yield line;
+        }
+    })();
+    return async () => ((await getLineGen.next()).value);
+})()
+
+/*const io = require('readline')
     .createInterface(process.stdin);
 
 const readln = () => new Promise(
@@ -24,4 +37,4 @@ const formatSolution = async (solution = Function(), argsLn = 1) => {
 }
 
 formatSolution((a, b) => Number(a) + Number(b), 2)
-
+*/
